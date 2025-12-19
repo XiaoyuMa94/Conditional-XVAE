@@ -17,7 +17,7 @@ import imageio.v2 as imageio
 
 matplotlib.use('TkAgg')
 
-os.chdir("C:/Users/User/OneDrive - University of Missouri/VAE Project/CVAE/py code/No alpha")
+os.chdir("~/CXVAE")
 
 # Device configuration
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -1439,3 +1439,4 @@ for patch, color in zip(plt.gca().artists, colors):
 plt.ylabel("Mean Squared Error (MSE)")
 plt.grid(axis="y", linestyle="--", alpha=0.6)
 plt.show()
+
