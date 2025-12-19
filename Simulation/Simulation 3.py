@@ -1323,80 +1323,6 @@ plt.ylabel("twCRPS (log scale)")
 plt.grid(axis="y", linestyle="--", alpha=0.6)
 plt.show()
 
-
-plt.figure(figsize=(8, 6))
-data = [
-    CRPS_model.view(-1),
-    CRPS_model_fix.view(-1),
-    CRPS_white.view(-1),
-    CRPS_white_fix.view(-1),
-]
-
-# Create violin plot
-parts = plt.violinplot(
-    data,
-    showmeans=False,
-    showmedians=True,
-    showextrema=False,
-)
-
-# Set violin color
-for pc in parts['bodies']:
-    pc.set_facecolor("skyblue")
-    pc.set_edgecolor("black")
-    pc.set_alpha(0.8)
-
-# Customize median lines
-parts['cmedians'].set_color("darkblue")
-parts['cmedians'].set_linewidth(1.5)
-
-# X-axis labels
-plt.xticks(
-    [1, 2, 3, 4],
-    ["Model", "Model*", "White noise", "White noise*"]
-)
-
-plt.ylabel("Continuous Ranked Probability Score (CRPS)")
-plt.grid(axis="y", linestyle="--", alpha=0.6)
-plt.show()
-
-
-
-plt.figure(figsize=(8, 6))
-data = [
-    CRPS_model.log().view(-1),
-    CRPS_model_fix.log().view(-1),
-    CRPS_white.log().view(-1),
-    CRPS_white_fix.log().view(-1),
-]
-
-# Create violin plot
-parts = plt.violinplot(
-    data,
-    showmeans=False,
-    showmedians=True,
-    showextrema=False,
-)
-
-# Set violin color
-for pc in parts['bodies']:
-    pc.set_facecolor("skyblue")
-    pc.set_edgecolor("black")
-    pc.set_alpha(0.8)
-
-# Customize median lines
-parts['cmedians'].set_color("darkblue")
-parts['cmedians'].set_linewidth(1.5)
-
-# X-axis labels
-plt.xticks(
-    [1, 2, 3, 4],
-    ["Model", "Model*", "White noise", "White noise*"]
-)
-
-plt.ylabel("CRPS (log scale)")
-plt.grid(axis="y", linestyle="--", alpha=0.6)
-plt.show()
 # QQ plots
 
 qq_idx = 0
@@ -1439,4 +1365,5 @@ for patch, color in zip(plt.gca().artists, colors):
 plt.ylabel("Mean Squared Error (MSE)")
 plt.grid(axis="y", linestyle="--", alpha=0.6)
 plt.show()
+
 
