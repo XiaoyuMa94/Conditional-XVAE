@@ -49,7 +49,55 @@ Conditional-XVAE/
  
 ---
 
+## Part I: Simulation Study
+ 
+The simulation study demonstrates the cXVAE on a 50×50 regular grid over $[0,20]\times[0,20]$, conditioned on the ENSO index (528 monthly time points, 1980–2023).
 
+### Step 1: Generate Simulation Data (R)
+
+Download the ENSO index from NOAA:
+[https://psl.noaa.gov/data/climateindices/list/](https://psl.noaa.gov/data/climateindices/list/)
+ 
+Then run the simulation script:
+ 
+```r
+source("Simulation/simulate_data.R")
+```
+
+The ENSO time series used as the condition variable $c_t$ is shown below. The three red dashed lines mark the representative El Niño, neutral, and La Niña periods used in the paper.
+
+![ENSO time series](figures/ENSO.png)
+
+The tilting parameter field $\theta_t(c_t)$ governs the spatial extent of extremal dependence and evolves with the ENSO index. Low values of $\theta$ correspond to heavier-tailed latent variables. Below are three representative $\theta_t$ maps at El Niño (left), neutral (center), and La Niña (right) conditions:
+
+| El Niño | Neutral | La Niña |
+|:---:|:---:|:---:|
+| ![theta El Nino](figures/theta1.png) | ![theta Neutral](figures/theta2.png) | ![theta La Nina](figures/theta3.png) |
+
+**Outputs** (saved as CSV):
+ 
+| File | Description | Shape |
+|------|-------------|-------|
+| `X_Data.csv` | Observed spatial fields | 2500 × 528 |
+| `Y_Data.csv` | Latent Y process | 2500 × 528 |
+| `Z_Data.csv` | Latent expPS variables | 225 × 528 |
+| `Thetas_Data.csv` | Tilting parameters | 225 × 528 |
+| `W_Data.csv` | Wendland basis matrix | 2500 × 225 |
+| `RBF_Data.csv` | RBF basis for theta | 225 × 144 |
+| `MEIs_MA_Data.csv` | Smoothed ENSO index | 528 × 1 |
+
+### Step 2: Pretrain the CNN (Python)
+ 
+The CNN decoder is pretrained to estimate the tilting parameter field $\theta_t$ from the approximation of fused latent inputs $(\hat{Z}_t, c_t)$. This warm-start is strongly recommended before training the full cXVAE.
+ 
+```python
+python Simulation/pretrain_CNN.py
+```
+ 
+The pretrained weights are saved to `CNN_pretrained.pt`.
+
+
+ 
 ## References
  
 <a id="1">[1]</a>
