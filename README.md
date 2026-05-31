@@ -139,6 +139,36 @@ The kernel density plots below compare the joint distribution of two arbitrary s
 |:---:|:---:|:---:|
 | ![CF Dec 1997](figures/Dist_Time_15.png) | ![CF Jun 1998](figures/Dist_Time_21.png) | ![CF Feb 1999](figures/Dist_Time_29.png) |
 
+### Step 6: Baseline Comparison
+
+A vanilla conditional VAE (Sohn et al., 2015)[[3]](#3) is included as a baseline. To ensure a fair comparison, its decoder is initializaed with the same Wendland basis as the cXVAE:
+
+```python
+python Simulation/baseline_SohnCVAE.py
+```
+ 
+### Step 7: Evaluation
+ 
+```python
+python Simulation/evaluate.py
+```
+
+**χ-coefficient**: The emulated χ curves (blue) closely follow those of the true data (red) across all spatial lags, capturing both strong short-range and weak long-range extremal dependence.
+
+![Chi-coefficient simulation](figures/chi_sim.png)
+ 
+**Averaged Radius of Exceedances (ARE)**: The emulated ARE curve closely tracks the truth across all quantile levels, with overlapping 95% confidence intervals.
+ 
+![ARE simulation](figures/ARE_sim.png)
+
+The evaluation script also produces tail-weighted CRPS violin plots and Q-Q plots saved to `figures/simulation/`.
+
+---
+ 
+## Part II: FWI Real Data Analysis
+
+The real data analysis applies the cXVAE to monthly maximum Fire Weather Index (FWI) data over eastern Australia (May 2014 - November 2024), conditioned on the ENSO index.
+
 ## References
  
 <a id="1">[1]</a>
