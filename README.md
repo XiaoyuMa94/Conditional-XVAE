@@ -96,8 +96,18 @@ python Simulation/pretrain_CNN.py
  
 The pretrained weights are saved to `CNN_pretrained.pt`.
 
-
+### Step 3: Train the cXVAE
  
+```python
+python Simulation/train_cXVAE.py
+```
+
+The cXVAE embeds a max-id extremes model within a conditional VAE framework. The encoder maps observed spatial fields to log-scale latent variables with ENSO injected as a linear conditioning term. The CNN decoder reconstructs the spatial process via a learnable basis matrix W and log-Laplace noise. Full model details are in Ma et al. (2025) [[2]](#2).
+ 
+The best model (by validation loss) is saved to `cXVAE_trained.pt`.
+
+
+
 ## References
  
 <a id="1">[1]</a>
