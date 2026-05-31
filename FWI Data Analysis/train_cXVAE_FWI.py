@@ -338,11 +338,10 @@ def loss_function(x, label, var, eps, y_star, rbf_mat, random_coefficients, z):
     loss_p3 = (var.log().sum(dim=1) + eps.pow(2).sum(dim=1) * 0.5).mean().div(3)
 
     # Part 4: temporal smoothness on basis coefficients
-    r_tmp   = random_coefficients.reshape(-1, 3, alpha_size)
-    d1      = torch.diff(r_tmp, dim=1)
-    ts      = torch.diff(label, dim=1).abs().clamp(min=3e-4)
-    loss_p4 = -0.001 * d1.div(ts.repeat_interleave(alpha_size).reshape(-1, 2, alpha_size)
-                               ).pow(2).sum().sqrt().div(d1.numel())
+    d1     = torch.diff(random_coefficients, dim=0)
+    ts     = torch.diff(label, dim=1).abs()
+    ts_mid = ts[:, 0][:-1].clamp(min=0.01)
+    loss_p4 = 0.001 * d1.div(ts_mid.unsqueeze(1)).pow(2).sum().sqrt().div(d1.numel())
 
     return loss_p1, loss_p2, loss_p3, loss_p4
 
