@@ -124,7 +124,20 @@ The emulated fields closely match the true simulated fields in the both spatial 
 
 *Top row: true simulated $\log(X_t)$. Bottom row: emulated $\log(X_t)$. Columns correspond to El Niño (December 1997), neutral (June 1998), and La Niña (February 1999) conditions.*
 
+### Step 5: Counterfactual Experiment
 
+To access the effect of climate conditions, pass a counterfactual ENSO index through the trained model:
+
+```python
+enso_counterfactual = MEI_SCALE - Nina34_input   # flip ENSO signal
+emulated_cf = cXVAE_emulate(model, n_samples=2000, condition_data=enso_counterfactual)
+```
+
+The kernel density plots below compare the joint distribution of two arbitrary spatial locations under the factual (red) and counterfactual (blue) ENSO signals at three representative times. The contours shift systematically in the direction consistent with the flipped ENSO index, confirming that the model meaningfully propagates climate information.
+ 
+| December 1997 (El Niño) | June 1998 (Neutral) | February 1999 (La Niña) |
+|:---:|:---:|:---:|
+| ![CF Dec 1997](figures/Dist_Time_15.png) | ![CF Jun 1998](figures/Dist_Time_21.png) | ![CF Feb 1999](figures/Dist_Time_29.png) |
 
 ## References
  
