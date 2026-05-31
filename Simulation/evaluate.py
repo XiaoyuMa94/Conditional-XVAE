@@ -141,7 +141,7 @@ def plot_field_comparison(X_true, X_emu, X_cf,
 
     for col, t in enumerate(target_times):
         true_field = X_true[:, t].log().reshape(50, 50).T.numpy()
-        emu_field  = X_emu[:, t].reshape(50, 50).T.numpy()
+        emu_field  = X_emu[:, t].log().reshape(50, 50).T.numpy()
         diff_field = ((X_cf[:, t] - X_emu[:, t]) / X_emu[:, t]).reshape(50, 50).T.numpy()
 
         for row, (data, cmap, vl, vh) in enumerate([
