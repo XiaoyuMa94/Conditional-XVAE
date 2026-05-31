@@ -83,7 +83,7 @@ def aug_2k(dat, meis, rbf_vec, width):
     dat_extended = torch.cat([
         dat.log(),
         rbf_vec.repeat(n_t, 1).T,
-        meis.T
+        meis
     ], dim=0)
 
     dat_3d = torch.zeros(n_t, 3, rbf_vec.shape[1] + n_knots + 1)
