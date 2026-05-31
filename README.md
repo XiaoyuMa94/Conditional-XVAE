@@ -214,6 +214,40 @@ The FWI analysis uses a 20×27 knot grid (540 knots) over the eastern Australia 
 python "FWI Data Analysis/train_cXVAE_FWI.py"
 ```
 
+This script trains the model, generates factual and counterfactual emulations, back-transforms to the original FWI scale via the inverse GEV transformation, and produces all evaluation figures.
+
+**Spatial field comparison**: The estimated $\theta_t$ maps (top row) and true vs emulated $\log(X_t)$ fields (middle and bottom rows) at three representative time points corresponding to El Niño (November 2023), neutral (April 2024), and La Niña (October 2024) conditions.
+ 
+![FWI spatial results](figures/real_theta_X_res.png)
+
+**Counterfactual experiment**: Kernel density contour plots comparing joint distributions of two spatial locations under factual (blue) and counterfactual (red) ENSO conditions. The minor differences indicate that ENSO contributes modestly to FWI in eastern Australia, consistent with the paper's findings.
+ 
+| November 2023 (El Niño) | April 2024 (Neutral) | October 2024 (La Niña) |
+|:---:|:---:|:---:|
+| ![CF Nov 2023](figures/Dist_Time_2023-11.png) | ![CF Apr 2024](figures/Dist_Time_2024-04.png) | ![CF Oct 2024](figures/Dist_Time_2024-10.png) |
+ 
+**χ-coefficient**: The emulated χ curves (blue) closely follow the true data (red) across all spatial lags.
+ 
+![Chi-coefficient FWI](figures/chi_FWI.png)
+ 
+**Averaged Radius of Exceedances (ARE)**: The emulated ARE curve closely tracks the observed data with overlapping 95% confidence intervals.
+ 
+![ARE FWI](figures/ARE_FWI.png)
+ 
+---
+ 
+## Model Architecture Summary
+ 
+| Component | Simulation | FWI |
+|-----------|------------|-----|
+| Spatial locations $n_s$ | 2,500 | 1,118 |
+| Knots $K$ | 225 (15×15) | 540 (20×27) |
+| Time points $n_t$ | 528 | 127 |
+| Noise process | log-Laplace($0, 1/30$) | log-Laplace($0, 1/30$) |
+| Optimizer | Adam, lr=$10^{-6}$ | Adam, lr=$10^{-7}$ |
+ 
+---
+
 
 ## References
  
