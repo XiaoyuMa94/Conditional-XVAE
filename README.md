@@ -169,6 +169,52 @@ The evaluation script also produces tail-weighted CRPS violin plots and Q-Q plot
 
 The real data analysis applies the cXVAE to monthly maximum Fire Weather Index (FWI) data over eastern Australia (May 2014 - November 2024), conditioned on the ENSO index.
 
+### Step 1: Download Raw FWI Data
+
+Raw daily FWI NetCDF files are available from the NASA NCCS Data Portal:
+ 
+[https://portal.nccs.nasa.gov/datashare/GlobalFWI/](https://portal.nccs.nasa.gov/datashare/GlobalFWI/)
+ 
+Files follow the naming convention: `FWI.GEOS-5.Daily.Default.YYYYMMDD.nc`
+
+### Step 2: Data Preparation (R)
+ 
+The preparation pipeline covers:
+1. Extracting the target region (143.125°–150.9375°E, 33.75°–23.25°S) from NetCDF files
+2. Filling missing values via local temporal interpolation
+3. Computing monthly maxima
+4. Removing seasonality via cubic spline detrending (`mgcv`)
+5. Fitting GEV distributions location-wise and transforming margins
+
+```r
+source("FWI Data Analysis/data_preparation.R")
+```
+ 
+**Outputs** (saved as CSV):
+ 
+| File | Description | Shape |
+|------|-------------|-------|
+| `X_Data.csv` | GEV-transformed FWI | 1118 × 127 |
+| `W_Data.csv` | Wendland basis matrix | 1118 × 540 |
+| `RBF_Data.csv` | RBF basis for theta | 540 × n_basis |
+| `MEIs_Data.csv` | Normalized ENSO index | 127 × 1 |
+| `GEV_par.csv` | Fitted GEV parameters | 1118 × 3 |
+ 
+### Step 3: Pretrain the CNN
+ 
+```python
+python "FWI Data Analysis/pretrain_CNN_FWI.py"
+```
+
+The FWI analysis uses a 20×27 knot grid (540 knots) over the eastern Australia region, compared to the 15×15 grid (225 knots) in the simulation. The CNN architecture is otherwise identical. The pretrained weights are saved to `CNN_pretrained_FWI.pt`.
+ 
+### Step 4: Train the cXVAE and Evaluate
+ 
+```python
+python "FWI Data Analysis/train_cXVAE_FWI.py"
+```
+
+
 ## References
  
 <a id="1">[1]</a>
