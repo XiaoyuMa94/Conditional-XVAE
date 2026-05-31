@@ -6,7 +6,7 @@
 #
 # The decoder's final layer is initialized with the Wendland basis matrix
 # to ensure a fair spatial comparison with the cXVAE — both models start
-# with the same spatial smoothness prior. Any remaining performance gap
+# with the same basis expansion setup. Any remaining performance gap
 # therefore reflects genuine architectural differences.
 #
 # Output:
