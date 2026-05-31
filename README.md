@@ -129,11 +129,11 @@ The emulated fields closely match the true simulated fields in the both spatial 
 ## References
  
 <a id="1">[1]</a>
-Zhang, L., Ma, X., Wikle, C.K. and Huser, R. "Fast and flexible emulation of spatial extremes processes via variational autoencoders." *Journal of the American Statistical Association*, just-accepted, 2026.
+Zhang, L., Ma, X., Wikle, C.K. and Huser, R. "Fast and flexible emulation of spatial extremes processes via variational autoencoders." *Journal of the American Statistical Association*, April, 1–14. doi:10.1080/01621459.2026.2621515.
  
 <a id="2">[2]</a>
-Ma, X., Zhang, L. and Wikle, C.K. "Modeling spatio-temporal extremes via conditional variational autoencoders." *Annals of Applied Statistics*, under review, 2025.
+Ma, X., Zhang, L. and Wikle, C.K. "Modeling spatio-temporal extremes via conditional variational autoencoders."  *arXiv preprint* arXiv:2512.06348 (2025).
  
 <a id="3">[3]</a>
-Sohn, K., Lee, H. and Yan, X. "Learning structured output representation using deep conditional generative models." *Advances in Neural Information Processing Systems*, 28, 2015.
+Sohn, K., Lee, H. and Yan, X. "Learning structured output representation using deep conditional generative models." *Advances in Neural Information Processing Systems*, 28, (2015).
 
