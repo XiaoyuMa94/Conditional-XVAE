@@ -244,7 +244,7 @@ This script trains the model, generates factual and counterfactual emulations, b
 | Knots $K$ | 225 (15×15) | 540 (20×27) |
 | Time points $n_t$ | 528 | 127 |
 | Noise process | log-Laplace($0, 1/30$) | log-Laplace($0, 1/30$) |
-| Optimizer | Adam, lr=$10^{-6}$ | Adam, lr=$10^{-7}$ |
+| Optimizer | Adam, lr=10<sup>-6</sup> | Adam, lr=10<sup>-7</sup> |
  
 ---
 
