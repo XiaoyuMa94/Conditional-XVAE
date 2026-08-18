@@ -135,7 +135,7 @@ train_dataset, val_dataset = random_split(
     generator=torch.Generator().manual_seed(42)
 )
 
-train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
+train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=False)
 val_loader   = DataLoader(val_dataset,   batch_size=BATCH_SIZE, shuffle=False)
 
 # =============================================================================
